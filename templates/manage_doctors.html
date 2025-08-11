@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Doctors</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Manage Doctors</h2>
+    <hr>
+    <h4>Add New Doctor</h4>
+    <form method="post" class="mb-4">
+        <div class="form-row">
+            <div class="col"><input type="text" name="username" class="form-control" placeholder="Username" required></div>
+            <div class="col"><input type="password" name="password" class="form-control" placeholder="Password" required></div>
+            <div class="col"><input type="text" name="full_name" class="form-control" placeholder="Full Name" required></div>
+        </div>
+        <div class="form-row mt-2">
+            <div class="col"><input type="email" name="email" class="form-control" placeholder="Email" required></div>
+            <div class="col"><input type="text" name="department" class="form-control" placeholder="Department" required></div>
+            <div class="col"><input type="text" name="specialization" class="form-control" placeholder="Specialization" required></div>
+        </div>
+        <button type="submit" class="btn btn-success mt-2">Add Doctor</button>
+    </form>
+    
+    <hr>
+    <h4>Existing Doctors</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Department</th>
+                <th>Specialization</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for doctor in doctors %}
+            <tr>
+                <td>{{ doctor[0] }}</td>
+                <td>{{ doctor[3] }}</td>
+                <td>{{ doctor[5] }}</td>
+                <td>{{ doctor[6] }}</td>
+                <td>{{ doctor[4] }}</td>
+                <td>
+                    <a href="/admin/doctors/delete/{{ doctor[0] }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+</div>
+</body>
+</html>

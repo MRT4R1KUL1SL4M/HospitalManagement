@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Appointments</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>My Scheduled Appointments</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Appointment ID</th>
+                <th>Patient Name</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for appt in appointments %}
+            <tr>
+                <td>{{ appt[0] }}</td>
+                <td>{{ appt[1] }}</td>
+                <td>{{ appt[2].strftime('%Y-%m-%d') }}</td>
+                <td>{{ appt[3] }}</td>
+                <td><span class="badge badge-primary">{{ appt[4] }}</span></td>
+                <td>
+                    <a href="{{ url_for('view_patient', user_id=appt[5]) }}" class="btn btn-info btn-sm">View Patient</a>
+                    {% if appt[4] == 'Scheduled' %}
+                    <a href="{{ url_for('write_prescription', appointment_id=appt[0]) }}" class="btn btn-success btn-sm">Write Prescription</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6" class="text-center">No appointments scheduled.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('doctor_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+</div>
+</body>
+</html>

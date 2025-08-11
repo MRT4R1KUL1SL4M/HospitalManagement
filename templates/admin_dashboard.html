@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Admin Panel</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('manage_doctors') }}">Manage Doctors</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('approve_doctors') }}">Approve Doctors</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('manage_users') }}">Manage Users</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('monitor_appointments') }}">Monitor Appointments</a></li>
+            {% if session.is_super_admin %}
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('manage_admins') }}">Manage Admins</a></li>
+            {% endif %}
+        </ul>
+        <a href="{{ url_for('logout') }}" class="btn btn-outline-light">Logout</a>
+    </div>
+</nav>
+<div class="container mt-4">
+    <h2>Admin Dashboard</h2>
+    <p>Welcome, {{ session.username }}!</p>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header">Total Users</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ stats.total_users }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-header">Total Doctors</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ stats.total_doctors }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-header">Total Appointments</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ stats.total_appointments }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

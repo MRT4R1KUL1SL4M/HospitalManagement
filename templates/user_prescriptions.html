@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Prescriptions</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>My Prescriptions</h2>
+    {% for prescription in prescriptions %}
+        <div class="card mb-3">
+            <div class="card-header">
+                Prescription from Dr. {{ prescription[1] }} on {{ prescription[3].strftime('%Y-%m-%d') }}
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{ prescription[2] }}</p>
+            </div>
+        </div>
+    {% else %}
+        <p>You have no prescriptions.</p>
+    {% endfor %}
+    <a href="{{ url_for('user_dashboard') }}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+</div>
+</body>
+</html>

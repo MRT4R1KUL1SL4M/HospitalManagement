@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Approve Doctors</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Pending Doctor Registrations</h2>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Department</th>
+                <th>Specialization</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for doctor in pending_doctors %}
+            <tr>
+                <td>{{ doctor[3] }}</td>
+                <td>{{ doctor[4] }}</td>
+                <td>{{ doctor[5] }}</td>
+                <td>{{ doctor[6] }}</td>
+                <td>
+                    <a href="{{ url_for('handle_doctor_approval', doctor_id=doctor[0], action='approve') }}" class="btn btn-success btn-sm">Approve</a>
+                    <a href="{{ url_for('handle_doctor_approval', doctor_id=doctor[0], action='reject') }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to reject this application?')">Reject</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5" class="text-center">No pending registrations found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+</div>
+</body>
+</html>

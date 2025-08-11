@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Patient Profile: {{ patient[0] }}</h2>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Patient Details</h5>
+            <p><strong>Email:</strong> {{ patient[1] }}</p>
+            <p><strong>Phone:</strong> {{ patient[2] }}</p>
+            <p><strong>Address:</strong> {{ patient[3] }}</p>
+        </div>
+    </div>
+    
+    <h3 class="mt-4">Patient History</h3>
+    {% for record in history %}
+    <div class="card mb-3">
+        <div class="card-header">
+            Appointment on {{ record[0].strftime('%Y-%m-%d') }}
+        </div>
+        <div class="card-body">
+            <p><strong>Reason:</strong> {{ record[1] }}</p>
+            <p><strong>Prescription:</strong> {{ record[2] or 'N/A' }}</p>
+        </div>
+    </div>
+    {% else %}
+    <p>No previous history with this patient.</p>
+    {% endfor %}
+    <a href="{{ url_for('doctor_appointments') }}" class="btn btn-secondary mt-3">Back to Appointments</a>
+</div>
+</body>
+</html>

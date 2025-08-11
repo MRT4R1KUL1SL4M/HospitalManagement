@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Admins</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Manage Admins (Super Admin Only)</h2>
+    <hr>
+    <h4>Add New Admin</h4>
+    <form method="post" class="mb-4">
+        <div class="form-row">
+            <div class="col"><input type="text" name="username" class="form-control" placeholder="Username" required></div>
+            <div class="col"><input type="password" name="password" class="form-control" placeholder="Password" required></div>
+        </div>
+        <div class="form-row mt-2">
+            <div class="col"><input type="text" name="full_name" class="form-control" placeholder="Full Name"></div>
+            <div class="col"><input type="email" name="email" class="form-control" placeholder="Email"></div>
+        </div>
+        <button type="submit" class="btn btn-success mt-2">Add Admin</button>
+    </form>
+    
+    <hr>
+    <h4>Existing Admins</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Full Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for admin in admins %}
+            <tr>
+                <td>{{ admin[0] }}</td>
+                <td>{{ admin[1] }}</td>
+                <td>{{ admin[2] }}</td>
+                <td>{{ admin[3] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+</div>
+</body>
+</html>
